@@ -6,6 +6,7 @@ import logging
 
 log = logging.getLogger(__name__)
 
+
 class BST(bt.BT):
     def __init__(self, value=None):
         '''
@@ -34,8 +35,15 @@ class BST(bt.BT):
         '''
         Returns the height of the tree.
         '''
-        logging.info("TODO@src/bst.py: implement height()")
-        return 0
+
+        depthLeftNode = 0
+        depthRightNode = 0
+
+        if self is self.is_empty():
+            return 0
+        else:
+            # anropar en recursiv funktion
+            pass
 
     def preorder(self):
         '''
@@ -88,7 +96,7 @@ class BST(bt.BT):
         if v > self.value():
             return self.cons(self.lc(), self.rc().add(v))
         return self
-    
+
     def delete(self, v):
         '''
         Removes the value `v` from the tree and returns the new (updated) tree.
@@ -96,6 +104,7 @@ class BST(bt.BT):
         '''
         log.info("TODO@src/bst.py: implement delete()")
         return self
+
 
 if __name__ == "__main__":
     log.critical("module contains no main module")
