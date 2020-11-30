@@ -107,6 +107,21 @@ class BST(bt.BT):
             return self.cons(self.lc(), self.rc().add(v))
         return self
 
+    def removeNode(self):
+        """
+        4 casese to remove a node
+
+        1 - it is a leaf
+
+        2 - it has only left child
+
+        3 - it has only right child 
+
+        4 - it has both childern
+        """
+
+        pass
+
     def delete(self, v):  # Lukas
         '''
         Removes the value `v` from the tree and returns the new (updated) tree.
@@ -119,7 +134,7 @@ class BST(bt.BT):
         elif v > self.value():
             return self.cons(self.lc(), self.delete(self.rc(), v))
         else:
-            return removeNode()
+            return self.removeNode()
 
 
 if __name__ == "__main__":
