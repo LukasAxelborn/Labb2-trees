@@ -27,8 +27,10 @@ class BST(bt.BT):
         '''
         Returns the number of nodes in the tree.
         '''
-        logging.info("TODO@src/bst.py: implement size()")
-        return 0
+        if self.is_empty():
+            return 0
+        else:
+            return 1 + self.rc().size() + self.lc().size()
 
     def height(self):
         '''
