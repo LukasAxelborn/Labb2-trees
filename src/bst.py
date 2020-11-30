@@ -66,8 +66,9 @@ class BST(bt.BT):
         '''
         Returns a list of all members in inorder.
         '''
-        log.info("TODO@src/bst.py: implement inorder()")
-        return []
+        if self.is_empty():
+            return []
+        return self.lc().inorder() + [self.value()] + self.rc().inorder()
 
     def postorder(self):
         '''
