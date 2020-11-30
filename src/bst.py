@@ -21,8 +21,19 @@ class BST(bt.BT):
         '''
         Returns true if the value `v` is a member of the tree.
         '''
-        logging.info("TODO@src/bst.py: implement is_member()")
-        return False
+        if self.is_empty():
+            return False
+        else:
+            if v < self.value():
+                if self.lc() == None:
+                    return False
+                return self.lc().is_member(v)
+            elif v > self.value():
+                if self.rc() == None:
+                    return False
+                return self.rc().is_member(v)
+            else:
+                return True
 
     def size(self):
         '''
