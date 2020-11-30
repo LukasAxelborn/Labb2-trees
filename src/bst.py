@@ -107,12 +107,30 @@ class BST(bt.BT):
             return self.cons(self.lc(), self.rc().add(v))
         return self
 
+    def privateFindNode(self, v):
+        '''
+        Expects that the value exist.
+        Returns the node with that value.
+        '''
+        if v < self.value():
+            return self.lc().privateFindNode(v)
+        elif v > self.value():
+            return self.rc().privateFindNode(v)
+        else:
+            return self
+
     def delete(self, v):  # Lukas
         '''
         Removes the value `v` from the tree and returns the new (updated) tree.
         If `v` is a non-member, the same tree is returned without modification.
         '''
-        log.info("TODO@src/bst.py: implement delete()")
+        if self.is_empty() or not self.is_member(v):
+            return self
+        else:
+            # find the not to change
+            node = self.privateFindNode(v)
+
+            print(f"this is the node{node.value()}")
         return self
 
 
