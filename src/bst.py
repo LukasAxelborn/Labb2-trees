@@ -93,7 +93,7 @@ class BST(bt.BT):
             return self.cons(self.lc(), self.rc().add(v))
         return self
 
-    def delete(self, v):
+    def delete(self, v):  # Lukas
         '''
         Removes the value `v` from the tree and returns the new (updated) tree.
         If `v` is a non-member, the same tree is returned without modification.
