@@ -112,12 +112,20 @@ class BST(bt.BT):
         Expects that the value exist.
         Returns the node with that value.
         '''
-        if v < self.value():
-            return self.lc().privateFindNode(v)
-        elif v > self.value():
-            return self.rc().privateFindNode(v)
-        else:
-            return self
+        aLeftChild = True
+        parentNode = None
+        childNode = self
+        while childNode.value() is not v:
+            parentNode = childNode
+
+            if childNode.value() > v:
+                aLeftChild = True
+                childNode = childNode.lc()
+            else:
+                aLeftChild = False
+                childNode = childNode.rc()
+
+        return parentNode, childNode, aLeftChild
 
     def delete(self, v):  # Lukas
         '''
@@ -128,9 +136,25 @@ class BST(bt.BT):
             return self
         else:
             # find the not to change
-            node = self.privateFindNode(v)
+            parentNode, childNode, aLeftChild = self.privateFindNode(v)
 
-            print(f"this is the node{node.value()}")
+            print(f"this is the node{childNode.value()}")
+
+            # if it is a leaf
+            if (childNode.lc().is_empty()) and (childNode.rc().is_empty()):
+
+                # if it is the root then deleat it
+                if childNode is self:
+                    self is None
+
+                if aLeftChild:
+                    parentNode.set_lc() = None
+                else:
+                    parentNode.set_rc() = None
+            # if it has no right child
+            # elif childNode.rc() is None:
+            #    pass
+
         return self
 
 
