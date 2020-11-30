@@ -36,14 +36,10 @@ class BST(bt.BT):
         Returns the height of the tree.
         '''
 
-        depthLeftNode = 0
-        depthRightNode = 0
-
-        if self is self.is_empty():
+        if self.is_empty():
             return 0
         else:
-            # anropar en recursiv funktion
-            pass
+            return 1 + max(self.lc().height(), self.rc().height())
 
     def preorder(self):
         '''
