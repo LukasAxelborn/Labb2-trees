@@ -107,26 +107,6 @@ class BST(bt.BT):
             return self.cons(self.lc(), self.rc().add(v))
         return self
 
-    def privateFindNode(self, v):
-        '''
-        Expects that the value exist.
-        Returns the node with that value.
-        '''
-        aLeftChild = True
-        parentNode = None
-        childNode = self
-        while childNode.value() is not v:
-            parentNode = childNode
-
-            if childNode.value() > v:
-                aLeftChild = True
-                childNode = childNode.lc()
-            else:
-                aLeftChild = False
-                childNode = childNode.rc()
-
-        return parentNode, childNode, aLeftChild
-
     def delete(self, v):  # Lukas
         '''
         Removes the value `v` from the tree and returns the new (updated) tree.
@@ -134,28 +114,12 @@ class BST(bt.BT):
         '''
         if self.is_empty() or not self.is_member(v):
             return self
+        elif v < self.value():
+            return self.cons(self.delete(self.lc(), v), self.rc())
+        elif v > self.value():
+            return self.cons(self.lc(), self.delete(self.rc(), v))
         else:
-            # find the not to change
-            parentNode, childNode, aLeftChild = self.privateFindNode(v)
-
-            print(f"this is the node{childNode.value()}")
-
-            # if it is a leaf
-            if (childNode.lc().is_empty()) and (childNode.rc().is_empty()):
-
-                # if it is the root then deleat it
-                if childNode is self:
-                    self is None
-
-                if aLeftChild:
-                    parentNode.set_lc() = None
-                else:
-                    parentNode.set_rc() = None
-            # if it has no right child
-            # elif childNode.rc() is None:
-            #    pass
-
-        return self
+            return removeNode()
 
 
 if __name__ == "__main__":
