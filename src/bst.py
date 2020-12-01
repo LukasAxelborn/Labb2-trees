@@ -106,6 +106,19 @@ class BST(bt.BT):
         if v > self.value():
             return self.cons(self.lc(), self.rc().add(v))
         return self
+    """
+    need to find out why my recuriosn dont work
+    def findTheMostSmallsest(self):
+        if not self.lc().is_empty():
+            print(self.value())
+            return self.lc().findTheMostSmallsest()
+    """
+
+    def findTheMostSmallsestwhileloop(self):
+        node = self
+        while not node.lc().is_empty():
+            node = node.lc()
+        return node
 
     def removeNode(self):
         """
@@ -137,7 +150,11 @@ class BST(bt.BT):
 
         elif not self.lc().is_empty() and not self.rc().is_empty():
 
-            pass
+            self.smalestNode = self.rc().findTheMostSmallsestwhileloop()
+            self.set_value(self.smalestNode.value())
+            self.smalestNode.removeNode()
+
+            return self
 
     def delete(self, v):  # Lukas
         '''
