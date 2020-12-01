@@ -111,18 +111,33 @@ class BST(bt.BT):
         """
         4 casese to remove a node
 
-        1 - it is a leaf 
+        1 - it is a leaf
 
         2 - it has only left child
 
-        3 - it has only right child 
+        3 - it has only right child
 
         4 - it has both childern
         """
+        # is a leaf
+        if self.lc().is_empty() and self.rc().is_empty():
 
-        if self.lc() and self.rc():
-            self = None
-            print(f"whis is the node {self.value()}")
+            self.set_value(None)
+            return self.cons(None, None)
+
+        elif self.lc().is_empty() and not self.rc().is_empty():
+
+            self.set_value(self.rc().value())
+            return self.cons(self.rc().lc(), self.rc().rc())
+
+        elif not self.lc().is_empty() and self.rc().is_empty():
+
+            self.set_value(self.lc().value())
+            return self.cons(self.lc().lc(), self.lc().rc())
+
+        elif not self.lc().is_empty() and not self.rc().is_empty():
+
+            pass
 
     def delete(self, v):  # Lukas
         '''
