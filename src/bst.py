@@ -74,8 +74,9 @@ class BST(bt.BT):
         '''
         Returns a list of all members in postorder.
         '''
-        log.info("TODO@src/bst.py: implement postorder()")
-        return []
+        if self.is_empty():
+            return []
+        return self.lc().inorder()  + self.rc().inorder() + [self.value()]
 
     def bfs_order_star(self):
         '''
