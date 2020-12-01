@@ -77,7 +77,7 @@ class BST(bt.BT):
         if self.is_empty():
             return []
         return self.lc().inorder()  + self.rc().inorder() + [self.value()]
-
+    
     def bfs_order_star(self):
         '''
         Returns a list of all members in breadth-first search* order, which
@@ -91,8 +91,48 @@ class BST(bt.BT):
         The output of t.bfs_order_star() should be:
         [ 10, 5, 15, None, None, None, 20 ]
         '''
-        log.info("TODO@src/bst.py: implement bfs_order_star()")
-        return []
+        if self.is_empty():
+            return []
+        else:
+            queue = []
+            tempQueue = []
+
+            queue.append(self)
+
+            while(len(queue) > 0):
+                
+                tempQueue.append(queue[0].value())
+
+                node = queue.pop(0)
+
+                #Enqueue left child
+                if node.lc() is not None:
+                    queue.append(node.lc())
+        
+                # Enqueue right child
+                if node.rc() is not None:
+                    queue.append(node.rc())
+            
+            #get greates value in tempQueue
+            l = len(tempQueue)
+            maxNum = 0
+
+            for x in range(l):
+                if tempQueue[x] is not None:
+                    if tempQueue[x] > maxNum:
+                        maxNum = tempQueue[x]
+        
+            #append all values up to maxNum to new list printQueue
+            #and return printQueue
+            start = tempQueue.index(maxNum)
+
+            printQueue = []
+
+            for val in range(start + 1):  
+                    printQueue.append(tempQueue[val]) 
+
+            return printQueue
+
 
     def add(self, v):
         '''
