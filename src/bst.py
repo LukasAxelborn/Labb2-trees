@@ -147,14 +147,69 @@ class BST(bt.BT):
         if v > self.value():
             return self.cons(self.lc(), self.rc().add(v))
         return self
+    """
+    need to find out why my recuriosn dont work
+    def findTheMostSmallsest(self):
+        if not self.lc().is_empty():
+            print(self.value())
+            return self.lc().findTheMostSmallsest()
+    """
+
+    def findTheMostSmallsestwhileloop(self):
+        node = self
+        while not node.lc().is_empty():
+            node = node.lc()
+        return node
+
+    def removeNode(self):
+        """
+        4 casese to remove a node
+
+        1 - it is a leaf
+
+        2 - it has only left child
+
+        3 - it has only right child
+
+        4 - it has both childern
+        """
+        # is a leaf
+        if self.lc().is_empty() and self.rc().is_empty():
+
+            self.set_value(None)
+            return self.cons(None, None)
+
+        elif self.lc().is_empty() and not self.rc().is_empty():
+
+            self.set_value(self.rc().value())
+            return self.cons(self.rc().lc(), self.rc().rc())
+
+        elif not self.lc().is_empty() and self.rc().is_empty():
+
+            self.set_value(self.lc().value())
+            return self.cons(self.lc().lc(), self.lc().rc())
+
+        elif not self.lc().is_empty() and not self.rc().is_empty():
+
+            self.smalestNode = self.rc().findTheMostSmallsestwhileloop()
+            self.set_value(self.smalestNode.value())
+            self.smalestNode.removeNode()
+
+            return self
 
     def delete(self, v):  # Lukas
         '''
         Removes the value `v` from the tree and returns the new (updated) tree.
         If `v` is a non-member, the same tree is returned without modification.
         '''
-        log.info("TODO@src/bst.py: implement delete()")
-        return self
+        if self.is_empty() or not self.is_member(v):
+            return self
+        elif v < self.value():
+            return self.cons(self.lc().delete(v), self.rc())
+        elif v > self.value():
+            return self.cons(self.lc(), self.rc().delete(v))
+        else:
+            return self.removeNode()
 
 
 if __name__ == "__main__":
