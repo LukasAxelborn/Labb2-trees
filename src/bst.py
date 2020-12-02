@@ -78,6 +78,44 @@ class BST(bt.BT):
             return []
         return self.lc().inorder() + self.rc().inorder() + [self.value()]
 
+    def noneroot(self, index, size):
+        exlution = []
+
+        left_child = right_child = index
+
+        while left_child <= size:
+            left_child = (2 * left_child) + 1
+            exlution.append(left_child)
+
+        while right_child <= size:
+            right_child = (2 * right_child) + 1
+            exlution.append(right_child)
+
+        return exlution
+
+    def bfs_list(self):
+
+        bfsqueue = []
+        treequeue = []
+
+        treequeue.append(self)
+
+        while(len(treequeue) > 0):
+
+            bfsqueue.append(treequeue.pop(0))
+
+            node = treequeue.pop(0)
+
+            # Enqueue left child
+            if node.lc() is not None:
+                treequeue.append(node.lc())
+
+                # Enqueue right child
+            if node.rc() is not None:
+                treequeue.append(node.rc())
+
+        return bfsqueue
+
     def bfs_order_star(self):
         '''
         Returns a list of all members in breadth-first search* order, which
@@ -94,44 +132,33 @@ class BST(bt.BT):
         if self.is_empty():
             return []
         else:
-            queue = []
-            tempQueue = []
 
-            queue.append(self)
+            totalsize = ((2**self.height()) - 1)
+            # sätter alla index lika men None
+            bfsqueue = [None] * totalsize
+            treequeue = self.bfs_list()
 
-            while(len(queue) > 0):
+            exlution = []
 
-                tempQueue.append(queue[0].value())
+            for index in range(totalsize):
 
-                node = queue.pop(0)
+                if index not in exlution:
 
-                # Enqueue left child
-                if node.lc() is not None:
-                    queue.append(node.lc())
+                    node = treequeue.pop(0)
 
-                # Enqueue right child
-                if node.rc() is not None:
-                    queue.append(node.rc())
+                    bfsqueue[index] = node.value()
 
-            # get greates value in tempQueue
-            l = len(tempQueue)
-            maxNum = 0
+                    # checking if node has a left child
+                    if node.lc().is_empty():
+                        index_left = (2 * index) + 1
+                        exlution += self.noneroot(index, totalsize)
 
-            for x in range(l):
-                if tempQueue[x] is not None:
-                    if tempQueue[x] > maxNum:
-                        maxNum = tempQueue[x]
+                        # checking if node has a right child
+                    elif node.rc().is_empty():
+                        index_right = (2 * index) + 2
+                        exlution += self.noneroot(index_right, totalsize)
 
-            # append all values up to maxNum to new list printQueue
-            # and return printQueue
-            start = tempQueue.index(maxNum)
-
-            printQueue = []
-
-            for val in range(start + 1):
-                printQueue.append(tempQueue[val])
-
-            return printQueue
+            return bfsqueue
 
     def add(self, v):
         '''
@@ -155,7 +182,7 @@ class BST(bt.BT):
     """
 
     def findTheSmallsestNodeOnTheRight(self):
-        #node = self
+        # node = self
         node = self.rc()
         while not node.lc().is_empty():
             node = node.lc()
@@ -191,7 +218,7 @@ class BST(bt.BT):
 
         elif not self.lc().is_empty() and not self.rc().is_empty():
 
-            #self.smalestNode = self.rc().findTheSmallsestNodeOnTheRight()
+            # self.smalestNode = self.rc().findTheSmallsestNodeOnTheRight()
             self.smalestNode = self.findTheSmallsestNodeOnTheRight()
             self.set_value(self.smalestNode.value())
             self.smalestNode.removeNode()

@@ -183,15 +183,15 @@ class TerminalUI:
         Shows a pretty 2D tree based on the output of bfs_order_star(). None
         values are are replaced by stars ("*").
         '''
-        # nodes = [5, 3, 17, None, 4, None, 20, None,
-        #         None, None, None, None, None, None, 23]
-        #nodesHight = 4
-
-        nodes = self._tree.bfs_order_star()
+        nodes = [5, 3, 17, None, 4, None, 20, 6,
+                 None, None, None, None, None, None, 23]
+        nodesHight = 4
+        """
+        #nodes = self._tree.bfs_order_star()
         self.start = 0
         self.end = self.depth = 1
 
-        for i in range(self.three.height()):
+        for i in range(nodesHight):
 
             position = (int)(self.menu_width() / self.depth)
 
@@ -208,6 +208,7 @@ class TerminalUI:
             self.start = self.end
             self.end = (self.end * 2) + 1
             self.depth *= 2
+        """
 
 
 if __name__ == "__main__":
