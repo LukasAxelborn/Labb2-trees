@@ -76,8 +76,8 @@ class BST(bt.BT):
         '''
         if self.is_empty():
             return []
-        return self.lc().inorder()  + self.rc().inorder() + [self.value()]
-    
+        return self.lc().inorder() + self.rc().inorder() + [self.value()]
+
     def bfs_order_star(self):
         '''
         Returns a list of all members in breadth-first search* order, which
@@ -100,20 +100,20 @@ class BST(bt.BT):
             queue.append(self)
 
             while(len(queue) > 0):
-                
+
                 tempQueue.append(queue[0].value())
 
                 node = queue.pop(0)
 
-                #Enqueue left child
+                # Enqueue left child
                 if node.lc() is not None:
                     queue.append(node.lc())
-        
+
                 # Enqueue right child
                 if node.rc() is not None:
                     queue.append(node.rc())
-            
-            #get greates value in tempQueue
+
+            # get greates value in tempQueue
             l = len(tempQueue)
             maxNum = 0
 
@@ -121,18 +121,17 @@ class BST(bt.BT):
                 if tempQueue[x] is not None:
                     if tempQueue[x] > maxNum:
                         maxNum = tempQueue[x]
-        
-            #append all values up to maxNum to new list printQueue
-            #and return printQueue
+
+            # append all values up to maxNum to new list printQueue
+            # and return printQueue
             start = tempQueue.index(maxNum)
 
             printQueue = []
 
-            for val in range(start + 1):  
-                    printQueue.append(tempQueue[val]) 
+            for val in range(start + 1):
+                printQueue.append(tempQueue[val])
 
             return printQueue
-
 
     def add(self, v):
         '''
@@ -155,8 +154,9 @@ class BST(bt.BT):
             return self.lc().findTheMostSmallsest()
     """
 
-    def findTheMostSmallsestwhileloop(self):
-        node = self
+    def findTheSmallsestNodeOnTheRight(self):
+        #node = self
+        node = self.rc()
         while not node.lc().is_empty():
             node = node.lc()
         return node
@@ -191,7 +191,8 @@ class BST(bt.BT):
 
         elif not self.lc().is_empty() and not self.rc().is_empty():
 
-            self.smalestNode = self.rc().findTheMostSmallsestwhileloop()
+            #self.smalestNode = self.rc().findTheSmallsestNodeOnTheRight()
+            self.smalestNode = self.findTheSmallsestNodeOnTheRight()
             self.set_value(self.smalestNode.value())
             self.smalestNode.removeNode()
 
