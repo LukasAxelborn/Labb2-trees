@@ -89,6 +89,12 @@ class TerminalUI:
         if err is not None:
             self.display_error(err)
             return
+
+        # nodes = [5, 3, 17, 4, 20, 23]
+
+        # for node in nodes:
+        #    self._tree = self._tree.add(node)
+
         self._tree = self._tree.add(value)
 
     def delete_value(self):
@@ -177,7 +183,31 @@ class TerminalUI:
         Shows a pretty 2D tree based on the output of bfs_order_star(). None
         values are are replaced by stars ("*").
         '''
-        log.info("TODO@src/ui.py: implement show_2d() using bfs_order_star()")
+        # nodes = [5, 3, 17, None, 4, None, 20, None,
+        #         None, None, None, None, None, None, 23]
+        #nodesHight = 4
+
+        nodes = self._tree.bfs_order_star()
+        self.start = 0
+        self.end = self.depth = 1
+
+        for i in range(self.three.height()):
+
+            position = (int)(self.menu_width() / self.depth)
+
+            for j in range(self.start, self.end):
+
+                print(
+                    f"\t{nodes[j] if nodes[j] is not None else '*'}".expandtabs(
+                        position),
+                    end="")
+
+                print("\t".expandtabs(position), end="")
+
+            print("\n")
+            self.start = self.end
+            self.end = (self.end * 2) + 1
+            self.depth *= 2
 
 
 if __name__ == "__main__":
