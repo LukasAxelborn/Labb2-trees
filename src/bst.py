@@ -98,40 +98,22 @@ class BST(bt.BT):
             tempQueue = []
 
             queue.append(self)
-
+            
             while(len(queue) > 0):
                 
                 tempQueue.append(queue[0].value())
-
+                
                 node = queue.pop(0)
 
                 #Enqueue left child
                 if node.lc() is not None:
                     queue.append(node.lc())
-        
-                # Enqueue right child
+                
+                 # Enqueue right child
                 if node.rc() is not None:
                     queue.append(node.rc())
-            
-            #get greates value in tempQueue
-            l = len(tempQueue)
-            maxNum = 0
 
-            for x in range(l):
-                if tempQueue[x] is not None:
-                    if tempQueue[x] > maxNum:
-                        maxNum = tempQueue[x]
-        
-            #append all values up to maxNum to new list printQueue
-            #and return printQueue
-            start = tempQueue.index(maxNum)
-
-            printQueue = []
-
-            for val in range(start + 1):  
-                    printQueue.append(tempQueue[val]) 
-
-            return printQueue
+            return tempQueue
 
 
     def add(self, v):
