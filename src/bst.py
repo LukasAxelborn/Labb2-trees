@@ -77,6 +77,7 @@ class BST(bt.BT):
         if self.is_empty():
             return []
         return self.lc().inorder()  + self.rc().inorder() + [self.value()]
+
     
     def bfs_order_star(self):
         '''
@@ -95,26 +96,26 @@ class BST(bt.BT):
             return []
         else:
             queue = []
-            tempQueue = []
 
-            queue.append(self)
+            h = self.height()
+
+            level = []
+
+            #set value of levels[] to number of free slots at each
+            for i in range(h):
+                level.append(pow(2, i))
+
+            node = self
+
+            print(node.rc().rc().value())
+
             
-            while(len(queue) > 0):
-                
-                tempQueue.append(queue[0].value())
-                
-                node = queue.pop(0)
 
-                #Enqueue left child
-                if node.lc() is not None:
-                    queue.append(node.lc())
-                
-                 # Enqueue right child
-                if node.rc() is not None:
-                    queue.append(node.rc())
+            
 
-            return tempQueue
+                          
 
+            return []
 
     def add(self, v):
         '''
