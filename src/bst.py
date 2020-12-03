@@ -84,11 +84,11 @@ class BST(bt.BT):
         left_child = right_child = index
 
         exlution.append(index)
-
+        # calculating index for left roots
         while left_child <= size:
             left_child = (2 * left_child) + 1
             exlution.append(left_child)
-
+        # calculating index for right roots
         while right_child <= size:
             right_child = (2 * right_child) + 2
             exlution.append(right_child)
@@ -96,6 +96,10 @@ class BST(bt.BT):
         return exlution
 
     def bfs_list(self):
+        """
+        Almost using the BFS algoritmen to store all node in a list.
+        Returns the list
+        """
 
         queue = []
         tempQueue = []
@@ -134,34 +138,38 @@ class BST(bt.BT):
         if self.is_empty():
             return []
         else:
-
+            # calculating all the nodes in the tree, even them how dont exist.
             totalsize = ((2**self.height()) - 1)
+
             # sätter alla index lika men None
             bfsqueue = [None] * totalsize
-            treequeue = self.bfs_list()
 
+            treequeue = self.bfs_list()
+            # A list with index where tha should not be a number,
             exlution = []
 
+            # going through the whole list
             for index in range(totalsize):
-                print(index)
-                print(f"value in exlution {exlution}")
 
+                # only update the value in the list if the index dose not exist in the forbiden index
                 if index not in exlution:
-                    print(f"this index works{index}")
+
                     node = treequeue.pop(0)
 
                     bfsqueue[index] = node.value()
 
-                    print(f"bfsqueue-> {bfsqueue}")
-
                     # checking if node has a left child
                     if node.lc().is_empty():
+                        # calculating the node left child index
                         index_left = (2 * index) + 1
+                        # and also the node left child childrens, adding them to the forbiden list
                         exlution += self.noneroot(index_left, totalsize)
 
                         # checking if node has a right child
                     if node.rc().is_empty():
+                        # calculating the node right child index
                         index_right = (2 * index) + 2
+                        # and also the node right child childrens, adding them to the forbiden list
                         exlution += self.noneroot(index_right, totalsize)
 
             return bfsqueue
