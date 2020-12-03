@@ -83,38 +83,40 @@ class BST(bt.BT):
 
         left_child = right_child = index
 
+        exlution.append(index)
+
         while left_child <= size:
             left_child = (2 * left_child) + 1
             exlution.append(left_child)
 
         while right_child <= size:
-            right_child = (2 * right_child) + 1
+            right_child = (2 * right_child) + 2
             exlution.append(right_child)
 
         return exlution
 
     def bfs_list(self):
 
-        bfsqueue = []
-        treequeue = []
+        queue = []
+        tempQueue = []
 
-        treequeue.append(self)
+        queue.append(self)
 
-        while(len(treequeue) > 0):
+        while(len(queue) > 0):
 
-            bfsqueue.append(treequeue.pop(0))
+            tempQueue.append(queue[0])
 
-            node = treequeue.pop(0)
+            node = queue.pop(0)
 
             # Enqueue left child
-            if node.lc() is not None:
-                treequeue.append(node.lc())
+            if not node.lc().is_empty():
+                queue.append(node.lc())
 
-                # Enqueue right child
-            if node.rc() is not None:
-                treequeue.append(node.rc())
+             # Enqueue right child
+            if not node.rc().is_empty():
+                queue.append(node.rc())
 
-        return bfsqueue
+        return tempQueue
 
     def bfs_order_star(self):
         '''
@@ -141,20 +143,24 @@ class BST(bt.BT):
             exlution = []
 
             for index in range(totalsize):
+                print(index)
+                print(f"value in exlution {exlution}")
 
                 if index not in exlution:
-
+                    print(f"this index works{index}")
                     node = treequeue.pop(0)
 
                     bfsqueue[index] = node.value()
 
+                    print(f"bfsqueue-> {bfsqueue}")
+
                     # checking if node has a left child
                     if node.lc().is_empty():
                         index_left = (2 * index) + 1
-                        exlution += self.noneroot(index, totalsize)
+                        exlution += self.noneroot(index_left, totalsize)
 
                         # checking if node has a right child
-                    elif node.rc().is_empty():
+                    if node.rc().is_empty():
                         index_right = (2 * index) + 2
                         exlution += self.noneroot(index_right, totalsize)
 
