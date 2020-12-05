@@ -27,8 +27,8 @@ class AVL(bst.BST):
 
     def delete(self, v):
         super().delete(v)
-        # return self.balance()
-        return self
+        return self.balance()
+        # return self
 
     def balance(self):
         '''
@@ -91,8 +91,8 @@ class AVL(bst.BST):
         return self.srr()
 
     def balanceCheck(self):
-        leftRootLengh = self.lc().height() if not self.lc().is_empty() else 0
-        rightRootLengh = self.rc().height() if not self.rc().is_empty() else 0
+        leftRootLengh = self.lc().height() if self.lc() is not None else 0
+        rightRootLengh = self.rc().height() if self.rc() is not None else 0
         # if it is a negativ number it is right heavy, is it positiv it is left heavy
         return leftRootLengh - rightRootLengh
 
