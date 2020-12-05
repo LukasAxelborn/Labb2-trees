@@ -145,7 +145,7 @@ class BST(bt.BT):
             bfsqueue = [None] * totalsize
 
             treequeue = self.bfs_list()
-            # A list with index where tha should not be a number,
+            # A list with index where that should not be a number,
             exlution = []
 
             # going through the whole list
