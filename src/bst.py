@@ -80,18 +80,17 @@ class BST(bt.BT):
 
     def noneroot(self, index, size):
         exlution = []
-
         left_child = right_child = index
 
-        exlution.append(index)
         # calculating index for left roots
         while left_child <= size:
-            left_child = (2 * left_child) + 1
             exlution.append(left_child)
+            left_child = (2 * left_child) + 1
+
         # calculating index for right roots
         while right_child <= size:
-            right_child = (2 * right_child) + 2
             exlution.append(right_child)
+            right_child = (2 * right_child) + 2
 
         return exlution
 
@@ -187,16 +186,8 @@ class BST(bt.BT):
         if v > self.value():
             return self.cons(self.lc(), self.rc().add(v))
         return self
-    """
-    need to find out why my recuriosn dont work
-    def findTheMostSmallsest(self):
-        if not self.lc().is_empty():
-            print(self.value())
-            return self.lc().findTheMostSmallsest()
-    """
 
     def findTheSmallsestNodeOnTheRight(self):
-        # node = self
         node = self.rc()
         while not node.lc().is_empty():
             node = node.lc()
@@ -220,26 +211,28 @@ class BST(bt.BT):
             self.set_value(None)
             return self.cons(None, None)
 
+        # it has a right child but not a left child
         elif self.lc().is_empty() and not self.rc().is_empty():
 
             self.set_value(self.rc().value())
             return self.cons(self.rc().lc(), self.rc().rc())
 
+        # it has a left child but not a right child
         elif not self.lc().is_empty() and self.rc().is_empty():
 
             self.set_value(self.lc().value())
             return self.cons(self.lc().lc(), self.lc().rc())
 
+        # it has a right child and a left child
         elif not self.lc().is_empty() and not self.rc().is_empty():
 
-            # self.smalestNode = self.rc().findTheSmallsestNodeOnTheRight()
             self.smalestNode = self.findTheSmallsestNodeOnTheRight()
             self.set_value(self.smalestNode.value())
             self.smalestNode.removeNode()
 
             return self
 
-    def delete(self, v):  # Lukas
+    def delete(self, v):
         '''
         Removes the value `v` from the tree and returns the new (updated) tree.
         If `v` is a non-member, the same tree is returned without modification.
