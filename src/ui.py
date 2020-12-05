@@ -90,11 +90,6 @@ class TerminalUI:
             self.display_error(err)
             return
 
-        # nodes = [5, 3, 17, 4, 20, 23]
-
-        # for node in nodes:
-        #    self._tree = self._tree.add(node)
-
         self._tree = self._tree.add(value)
 
     def delete_value(self):
