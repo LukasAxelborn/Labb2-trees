@@ -5,6 +5,7 @@ import logging
 
 log = logging.getLogger(__name__)
 
+
 class BT:
     _value = None
     _left_child = None
@@ -71,6 +72,7 @@ class BT:
         '''
         self._right_child = right_child
         return self
+
 
 if __name__ == "__main__":
     log.critical("module contains no main module")
